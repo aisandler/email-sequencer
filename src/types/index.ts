@@ -87,3 +87,60 @@ export interface IcebreakerResult {
   observationSource: string
   painPointConnection: string
 }
+
+// Campaign Types
+export interface Campaign {
+  id: string
+  name: string
+  createdAt: Date
+  updatedAt: Date
+  formData: FormData
+  sequences: SavedSequence[]
+  tags: string[]
+}
+
+export interface SavedSequence {
+  id: string
+  campaignId: string
+  emails: Email[]
+  icebreakerPrompt: string
+  validationResults: ValidationItem[]
+  generatedAt: Date
+  modelUsed: string
+  performance?: SequencePerformance
+}
+
+export interface SequencePerformance {
+  sentCount: number
+  openRate: number | null
+  replyRate: number | null
+  meetingsBooked: number
+  notes: string
+  reportedAt: Date
+}
+
+// Campaign Store
+export interface CampaignStore {
+  campaigns: Campaign[]
+  activeCampaignId: string | null
+}
+
+// Analytics Types
+export interface AggregateMetrics {
+  totalSequences: number
+  totalEmailsSent: number
+  averageOpenRate: number | null
+  averageReplyRate: number | null
+  totalMeetingsBooked: number
+  topPerformingIndustry: string | null
+  topPerformingPainPoint: string | null
+}
+
+export interface PerformanceInsight {
+  id: string
+  type: 'success' | 'improvement' | 'trend'
+  title: string
+  description: string
+  metric?: number
+  comparisonMetric?: number
+}
